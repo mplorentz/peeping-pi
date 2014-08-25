@@ -3,6 +3,6 @@
     <link href="{{ url_for('static', filename='stylesheets/style.css') }}"/>
 </head>
 <body>
-    The Game Room is... we're not sure yet.
+    The Game Room is {{ 'occupied.' if occupied else 'vacant!' }}
 </body>
 </html>
