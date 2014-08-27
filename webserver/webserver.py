@@ -11,5 +11,8 @@ def home():
     conn.close()
     return render_template('home.html', occupied=occupied)
 
-if __name__ == "__main__":
+def run(occupied):
     app.run(host='0.0.0.0')
+
+if __name__ == "__main__":
+    run(None)
