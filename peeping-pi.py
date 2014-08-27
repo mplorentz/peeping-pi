@@ -1,19 +1,16 @@
-from multiprocessing import Process, Queue
-from models import Sensor, Accumulator
+from multiprocessing import Process, Queue, Value
+import models
 from webserver import webserver
-import os
-
-port = 6000
+import os, ctypes
 
 def main():
+    shared_occupancy_state = Value(ctypes.c_bool, False)
     eventq = Queue()
-    randomword = os.urandom(80)
-    occupied = False
-    sensor = Process(target=Sensor.run, args=(eventq,))
-    accum  = Process(target=Accumulator.run, args=(eventq, occupied))
-    server = Process(target=webserver.run, args=(occpied,))
+    sensor = Process(target=models.sensor.run, args=(eventq,))
+    accumulator = Process(target=models.accumulator.run, args=(eventq, shared_occupancy_state))
+    server = Process(target=webserver.run, args=(shared_occupancy_state,))
     sensor.start()
-    accum.start()
+    accumulator.start()
     server.start()
 
 if __name__ == '__main__':
