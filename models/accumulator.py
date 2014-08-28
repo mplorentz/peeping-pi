@@ -11,14 +11,22 @@ def run(eventq, occstate):
     while True:
         event = eventq.get()
         event_history.append(event)
-        count = 0
+        movement_count = 0
+        nothing_sensed = 0
         with open('accumulator.log', 'a') as fp:
             for e in event_history:
                 fp.write("%d" % (1 if e else 0))
                 if e:
-                    count += 1
+                    movement_count += 1
+                    nothing_sensed = 0
+                else:
+                    nothing_sensed += 1
             fp.write('\n')
-        oldvalue = occstate.value
-        occstate.value = count >= 40
-        if oldvalue != occstate.value:
-            print("Occupied state changed to %s" % occstate.value)
+            oldvalue = occstate.value
+            if movement_count >= 40 and not occstate.value:
+                occstate.value = True
+            elif nothing_sensed > 60 and occstate.value:
+                occstate.value = False
+
+            if oldvalue != occstate.value:
+                fp.write("Occupied state changed to %s" % occstate.value)
