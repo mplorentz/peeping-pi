@@ -1,8 +1,12 @@
 <html>
 <head>
-    <link href="{{ url_for('static', filename='stylesheets/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}"/>
 </head>
 <body>
-    The Game Room is {{ 'occupied.' if occupied else 'vacant!' }}
+    <h1>The Game Room is</h1>    
+    <div id="circle" class="{{ 'occupied' if occupied else 'vacant' }}">
+        <div id="status">{{ 'Occupied' if occupied else 'Vacant' }}</div>
+    </div>
+    <h1>{{ 'Wait your turn.' if occupied else 'It\'s calling your name!' }}</h1>
 </body>
 </html>
