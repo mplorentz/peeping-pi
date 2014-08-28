@@ -9,4 +9,4 @@ def run(shared_occupancy_state):
     import routes
     global occstate
     occstate = shared_occupancy_state
-    app.run('0.0.0.0')
+    app.run('0.0.0.0', use_reloader=False)

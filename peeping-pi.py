@@ -9,9 +9,11 @@ def main():
     sensor = Process(target=models.sensor.run, args=(eventq,))
     accumulator = Process(target=models.accumulator.run, args=(eventq, shared_occupancy_state))
     server = Process(target=webserver.run, args=(shared_occupancy_state,))
+
+    parent = os.getpid()
     sensor.start()
     accumulator.start()
     server.start()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
