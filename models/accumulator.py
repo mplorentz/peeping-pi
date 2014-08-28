@@ -25,7 +25,7 @@ def run(eventq, occstate):
             oldvalue = occstate.value
             if movement_count >= 40 and not occstate.value:
                 occstate.value = True
-            elif nothing_sensed > 60 and occstate.value:
+            if nothing_sensed > 60 and occstate.value:
                 occstate.value = False
 
             if oldvalue != occstate.value:
