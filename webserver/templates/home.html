@@ -1,12 +1,31 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
     <h1>The Game Room is</h1>    
-    <div id="circle" class="{{ 'occupied' if occupied else 'vacant' }}">
-        <div id="status">{{ 'Occupied' if occupied else 'Vacant' }}</div>
+    <div id="circle" >
+        <div id="status"></div>
     </div>
-    <h1>{{ 'Wait your turn.' if occupied else 'It\'s calling your name!' }}</h1>
+    <h1 id="subtext"></h1>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var updateStatus = function() {
+                console.log('updating status')
+                $.getJSON('/isoccupied', function(data) {
+                    occupiedStr = data.occupied ? 'Occupied' : 'Vacant'
+                    console.log('The game room is ' + occupiedStr)
+                    $('#circle').attr('class', occupiedStr)
+                    $('#status').text(occupiedStr)
+                    $('#subtext').text(data.msg)
+                }) 
+            }
+
+            updateStatus()
+            setInterval(updateStatus, 5000)
+        })
+    </script>
 </body>
 </html>
