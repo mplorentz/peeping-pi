@@ -12,14 +12,18 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
+            var occupied
             var updateStatus = function() {
                 console.log('updating status')
                 $.getJSON('/isoccupied', function(data) {
-                    occupiedStr = data.occupied ? 'Occupied' : 'Vacant'
-                    console.log('The game room is ' + occupiedStr)
-                    $('#circle').attr('class', occupiedStr)
-                    $('#status').text(occupiedStr)
-                    $('#subtext').text(data.msg)
+                    if (occupied !== data.occupied) {
+                        occupied = data.occupied
+                        occupiedStr = occupied ? 'Occupied' : 'Vacant'
+                        console.log('The game room is ' + occupiedStr)
+                        $('#circle').attr('class', occupiedStr)
+                        $('#status').text(occupiedStr)
+                        $('#subtext').text(data.msg)
+                    }
                 }) 
             }
 
