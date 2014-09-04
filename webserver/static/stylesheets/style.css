@@ -12,7 +12,6 @@ body {
 }
 
 h1 {
-    font-size: 36pt;
     font-family: 'Tahoma', sans-serif;
     font-weight: 700;
     text-align: center;
@@ -22,26 +21,84 @@ h1 {
 
 .occupied {
     background-color: #df4949;
-    font-size:61pt;
 }
 
 .vacant {
     background-color: #92c040;
-    font-size:78pt;
 }
 
 #status {
-    font-family: 'Impact', sans-serif;
+    font-family: 'Impact', 'HelveticaNeue-CondensedBlack' sans-serif;
     font-weight: 700;
     text-align: center;
 }
 
 #circle {
-    width:400px;
-    height:400px;
-    border-radius:200px;
-    text-align: center;
-    line-height:400px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.page-frame {
+    height: 100%;
+    width: 100%
+}
+
+.frame-cell-small {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.frame-cell-med {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (orientation:landscape) {
+    h1 {
+        font-size:6vmin;
+    }
+
+    #circle {
+        width:50vmin;
+        height:50vmin;
+        border-radius:50%;
+        -moz-border-radius:50%
+        -webkit-border-radius:50%
+        border-radius:50%;
+        line-height:50vmin;
+        font-size:9vmin;
+    }
+
+    .frame-cell-small {
+        height:25%;
+    }
+
+    .frame-cell-med {
+        height:50%;
+    }
+}
+
+@media screen and (orientation:portrait) {
+    h1 {
+        font-size:8vmin;
+    }
+
+    #circle {
+        width:70vmin;
+        height:70vmin;
+        border-radius:70%;
+        -moz-border-radius:70%
+        -webkit-border-radius:70%
+        border-radius:70%;
+        line-height:70vmin;
+        font-size:13vmin;
+    }
+
+    .frame-cell-small {
+        height:25%;
+    }
+
+    .frame-cell-med {
+        height:50%;
+    }
 }

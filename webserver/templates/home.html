@@ -4,11 +4,25 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1>The Game Room is</h1>    
-    <div id="circle" >
-        <div id="status"></div>
-    </div>
-    <h1 id="subtext"></h1>
+    <table class="page-frame">
+        <tr>
+            <td class="frame-cell-small">
+                <h1>The Game Room is</h1>    
+            </td>
+        </tr>
+        <tr>
+            <td class="frame-cell-med">
+                <div id="circle" class="Occupied">
+                    <div id="status">Occupied</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="frame-cell-small">
+                <h1 id="subtext">Some subtext here!</h1>
+            </td>
+        </tr>
+    </table>
 
     <script type="text/javascript">
         $(document).ready(function(){
