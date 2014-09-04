@@ -1,7 +1,6 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}"/>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
     <table class="page-frame">
@@ -12,38 +11,44 @@
         </tr>
         <tr>
             <td class="frame-cell-med">
-                <div id="circle" class="Occupied">
-                    <div id="status">Occupied</div>
+                <div id="circle" class="Vacant">
+                    <div id="status"></div>
                 </div>
             </td>
         </tr>
         <tr>
             <td class="frame-cell-small">
-                <h1 id="subtext">Some subtext here!</h1>
+                <h1 id="subtext"></h1>
             </td>
         </tr>
     </table>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            var occupied
+        onload = function() {
+	    var occupied
             var updateStatus = function() {
                 console.log('updating status')
-                $.getJSON('/isoccupied', function(data) {
-                    if (occupied !== data.occupied) {
-                        occupied = data.occupied
-                        occupiedStr = occupied ? 'Occupied' : 'Vacant'
-                        console.log('The game room is ' + occupiedStr)
-                        $('#circle').attr('class', occupiedStr)
-                        $('#status').text(occupiedStr)
-                        $('#subtext').text(data.msg)
-                    }
-                }) 
-            }
+	        xmlhttp=new XMLHttpRequest();
+	        xmlhttp.onreadystatechange=function() {
+	            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		        data = JSON.parse(xmlhttp.responseText)
+		        if (occupied !== data.occupied) {
+                            occupied = data.occupied
+                            occupiedStr = occupied ? 'Occupied' : 'Vacant'
+                            console.log('The game room is ' + occupiedStr)
+			    document.getElementById('circle').setAttribute("class", occupiedStr)
+			    document.getElementById('status').innerHTML = occupiedStr
+			    document.getElementById('subtext').innerHTML = data.msg
+		        }
+	            }
+	        }
+	        xmlhttp.open("GET","/isoccupied",true);
+	        xmlhttp.send();
+	    }
 
             updateStatus()
-            setInterval(updateStatus, 5000)
-        })
+	    setInterval(updateStatus, 5000)
+	}
     </script>
 </body>
 </html>

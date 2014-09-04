@@ -12,6 +12,7 @@ vacant_messages = [
     "Boomshakalaka!",
     "Nature abhors a vaccuum.",
     "Isn't your workplace the best?",
+    "Green means GO!",
 ]
 
 def current_message(occupied):
