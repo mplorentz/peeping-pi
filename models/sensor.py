@@ -6,7 +6,7 @@ import time, os
 sensor_interval = 1 
 
 # GPIO pin the IR sensor is on (using the Broadcom numbering system).
-pir_pin = os.getenv('PEEPING_PI_PIN', 18) 
+pir_pin = int(os.getenv('PEEPING_PI_PIN', 18))
 
 def run(eventq):
     """ Sensor.py reads the IR sensor at the specified interval and adds an event to
