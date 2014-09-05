@@ -7,8 +7,8 @@ def home():
     return render_template('home.html')
 
 @webserver.app.route("/isoccupied")
-def is_occupied():
-    safe_is_occupied = is_occupied.value
+def isoccupied():
+    safe_is_occupied = webserver.is_occupied.value
     #safe_is_occupied = bool(random.getrandbits(1)) # used for development
     return  jsonify({
         'occupied': safe_is_occupied, 
