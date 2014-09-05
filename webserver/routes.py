@@ -1,15 +1,16 @@
 from flask import Flask, render_template, jsonify
 from multiprocessing import Value
-import webserver, messages
-import random
+import webserver, messages, random
 
 @webserver.app.route("/")
 def home():
-    return render_template('home.html', occupied=webserver.occstate.value)
+    return render_template('home.html')
 
 @webserver.app.route("/isoccupied")
 def is_occupied():
-    occupied = webserver.occstate.value
-    #occupied = bool(random.getrandbits(1))
-    return  jsonify({'occupied': occupied, 'msg': messages.current_message(occupied)})
-
+    safe_is_occupied = is_occupied.value
+    #safe_is_occupied = bool(random.getrandbits(1)) # used for development
+    return  jsonify({
+        'occupied': safe_is_occupied, 
+        'msg': messages.current_message(safe_is_occupied),
+    })

@@ -11,7 +11,7 @@
         </tr>
         <tr>
             <td class="frame-cell-med">
-                <div id="circle" class="Vacant">
+                <div id="circle" class="nothing-yet">
                     <div id="status"></div>
                 </div>
             </td>
@@ -25,30 +25,30 @@
 
     <script type="text/javascript">
         onload = function() {
-	    var occupied
+            var occupied
             var updateStatus = function() {
                 console.log('updating status')
-	        xmlhttp=new XMLHttpRequest();
-	        xmlhttp.onreadystatechange=function() {
-	            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		        data = JSON.parse(xmlhttp.responseText)
-		        if (occupied !== data.occupied) {
+                xmlhttp=new XMLHttpRequest()
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        data = JSON.parse(xmlhttp.responseText)
+                        if (occupied !== data.occupied) {
                             occupied = data.occupied
                             occupiedStr = occupied ? 'Occupied' : 'Vacant'
                             console.log('The game room is ' + occupiedStr)
-			    document.getElementById('circle').setAttribute("class", occupiedStr)
-			    document.getElementById('status').innerHTML = occupiedStr
-			    document.getElementById('subtext').innerHTML = data.msg
-		        }
-	            }
-	        }
-	        xmlhttp.open("GET","/isoccupied",true);
-	        xmlhttp.send();
-	    }
+                            document.getElementById('circle').setAttribute("class", occupiedStr)
+                            document.getElementById('status').innerHTML = occupiedStr
+                            document.getElementById('subtext').innerHTML = data.msg
+                        }
+                    }
+                }
+                xmlhttp.open("GET", "/isoccupied", true);
+                xmlhttp.send();
+            }
 
             updateStatus()
-	    setInterval(updateStatus, 5000)
-	}
+            setInterval(updateStatus, 5000)
+        }
     </script>
 </body>
 </html>
