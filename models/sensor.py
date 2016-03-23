@@ -16,5 +16,5 @@ def run(eventq):
     io.setup(pir_pin, io.IN)
 
     while True:
-        eventq.put(io.input(pir_pin))
+        eventq.put(io.input(pir_pin) != 0)
         time.sleep(sensor_interval)
